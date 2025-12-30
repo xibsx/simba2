@@ -1979,7 +1979,7 @@ ${config.PREFIX}𝙰𝙻𝙻 𝙼𝙴𝙽𝚄 𝚃𝙾 𝚅𝙸𝙴𝚆 𝙰𝙻
                     } catch (error) {
                         console.error(`Error in 'nasa' case: ${error.message}`);
                         await socket.sendMessage(sender, {
-                            text: '*⚠️ 𝙾𝚑, 𝚕𝚘𝚟𝚎, 𝚝𝚑𝚎 𝚜𝚝𝚊𝚛𝚜 𝚍𝚒𝚍𝚗'𝚝 𝚊𝚕𝚒𝚐𝚗 𝚝𝚑𝚒𝚜 𝚝𝚒𝚖𝚎! 🌌 𝚃𝚛𝚢 𝚊𝚐𝚊𝚒𝚗? 😘*'
+                            text: ''
                         });
                     }
                     break;
