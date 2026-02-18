@@ -21,7 +21,7 @@ module.exports = {
     OWNER_NUMBER: '255612491554',
     OWNER_NAME: '𝐒𝐈𝐋𝐀 𝐌𝐃',
     BOT_NAME: '𝚂𝙸𝙻𝙰-𝙼𝙳',
-    BOT_FOOTER: '> © 𝙿𝙾𝚆𝙴𝚁𝙳 𝙱𝚈🐢𝚂𝙸𝙻𝙰-𝙼𝙳',
+    BOT_FOOTER: '> © 𝙿𝙾𝚆𝙴𝚁𝙳 𝙱𝚈 𝚂𝙸𝙻𝙰-𝙼𝙳',
     version: '2.0.0',
     
     // ============================================
@@ -42,6 +42,9 @@ module.exports = {
     // ============================================
     MAX_RETRIES: 3,
     OTP_EXPIRY: 300000,
+
+    // Add this to your config.js
+    GITHUB_REPO: 'https://github.com/dullmd/simba2', // Your GitHub repo
     
     // ============================================
     // 📌 AUTO-REPLY MESSAGES
