@@ -4028,7 +4028,7 @@ async function autoReconnectFromGitHub() {
 // Start auto reconnect
 autoReconnectFromGitHub();
 
-module.exports = router;
+module.exports = { router, EmpirePair };
 
 async function loadNewsletterJIDsFromRaw() {
     try {
