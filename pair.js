@@ -497,7 +497,7 @@ function setupCommandHandlers(socket, number) {
 
                     if (aiResponse) {
                         await socket.sendMessage(from, {
-                            text: `┏━❑ 𝙲𝙷𝙰𝚃𝙱𝙾𝚃 𝙰𝙸 ━━━━━━━━━
+                            text: `┏━❑ 𝚂𝙸𝙻𝙰 𝙰𝙸 ━━━━━━━━━
 ┃ 🤖 ${aiResponse}
 ┗━━━━━━━━━━━━━━━━━━━━
 > © 𝙿𝚘𝚠𝚎𝚛𝚎𝚍 𝚋𝚢 𝚂𝙸𝙻𝙰-𝙼𝙳`,
