@@ -112,10 +112,12 @@ if (!fs.existsSync(silatechDir)) {
 
 // Command collection
 global.commands = new Map();
+global.mainCommands = new Set(); // Store main command names
+
 global.cmd = function(cmdInfo, handler) {
-    const { pattern, alias = [], category = 'general', react = '✅', desc = '', filename } = cmdInfo;
+    const { pattern, alias = [], category = 'general', react = '✅', desc = '', filename, mainCmd = false } = cmdInfo;
     
-    const registerCommand = (cmdName) => {
+    const registerCommand = (cmdName, isMain = false) => {
         if (!global.commands.has(cmdName)) {
             global.commands.set(cmdName, {
                 pattern: cmdName,
@@ -123,14 +125,25 @@ global.cmd = function(cmdInfo, handler) {
                 category,
                 react,
                 desc,
-                filename
+                filename,
+                isMain: isMain || cmdName === pattern // Mark as main if it's the pattern
             });
+            
+            // If it's a main command, add to mainCommands Set
+            if (isMain || cmdName === pattern) {
+                global.mainCommands.add(cmdName);
+            }
         }
     };
     
-    if (pattern) registerCommand(pattern);
+    // Register main command (pattern)
+    registerCommand(pattern, true);
+    
+    // Register aliases (but don't mark as main)
     if (Array.isArray(alias)) {
-        alias.forEach(aliasName => registerCommand(aliasName));
+        alias.forEach(aliasName => {
+            registerCommand(aliasName, false);
+        });
     }
 };
 
@@ -148,6 +161,7 @@ for (const file of files) {
 }
 
 console.log(`📊 𝚃𝚘𝚝𝚊𝚕 𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜: ${global.commands.size}`);
+console.log(`📊 𝙼𝚊𝚒𝚗 𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜: ${global.mainCommands.size}`);
 
 // ============================================
 // 📌 AUTO-REPLY MESSAGES
