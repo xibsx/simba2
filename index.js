@@ -5,12 +5,12 @@ const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 8000;
 
 // Import routes
-const pairRoute = require('./sila/pair');
+const pairRoute = require('./sila/sila');
 const adminApi = require('./lib/admin-api');
 
 // Set up global objects
 global.activeSockets = new Map();
-global.EmpirePair = require('./sila/pair').EmpirePair;
+global.EmpirePair = require('./sila/sila').EmpirePair;
 
 // Middleware
 app.use(bodyParser.json());
