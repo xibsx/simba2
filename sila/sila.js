@@ -98,9 +98,9 @@ const {
     createSerial,
     getContextInfo,
     fkontak
-} = require('./lib/functions');
+} = require('../lib/functions');
 
-const db = require('./lib/database');
+const db = require('../lib/database');
 
 // ============================================
 // 📌 LOAD ALL COMMANDS FROM SILATECH FOLDER
