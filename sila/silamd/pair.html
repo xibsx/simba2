@@ -3,114 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>𝙎𝙄𝙇𝘼-𝙈𝘿 🐢 | 𝙂𝙚𝙩 𝙋𝙖𝙞𝙧 𝘾𝙤𝙙𝙚</title>
+    <title>NIOR · pair</title>
+    <link rel="icon" href="https://files.catbox.moe/axuse3.png">
+    
+    <!-- Custom Font (Mani Tiles) -->
+    <style>
+        @font-face {
+            font-family: 'ManiTiles';
+            src: url('https://files.catbox.moe/4pyiiq.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #000000 0%, #0a0a2a 100%);
+            background: #0a0f1e;
+            font-family: 'Inter', sans-serif;
             color: #fff;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
         }
 
         .container {
-            background: rgba(0, 20, 40, 0.9);
-            backdrop-filter: blur(10px);
-            border: 2px solid #0066ff;
-            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px 24px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Header */
+        .site-header {
+            margin-bottom: 40px;
+            border-bottom: 2px solid #ffd96630;
+            padding-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text-fallback {
+            font-family: 'ManiTiles', 'Inter', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffd966, #ffaa33);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .wa-header {
+            background: #1f2d4a;
+            padding: 10px 20px;
+            border-radius: 60px;
+            border: 2px solid #ffd966;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wa-header i {
+            color: #25D366;
+            font-size: 1.5rem;
+        }
+
+        /* Main Card */
+        .pair-card {
+            background: linear-gradient(145deg, #142035, #0d1a2b);
+            border: 3px solid #ffd966;
+            border-radius: 60px;
             padding: 40px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 20px 50px rgba(0, 102, 255, 0.4);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(255, 217, 102, 0.15);
+        }
+
+        .pair-card::before {
+            content: "∞";
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            font-size: 15rem;
+            opacity: 0.03;
+            color: #ffd966;
+            font-weight: 800;
+            transform: rotate(15deg);
+            pointer-events: none;
         }
 
         h2 {
+            font-family: 'ManiTiles', 'Inter', sans-serif;
             text-align: center;
             margin-bottom: 30px;
-            font-size: 28px;
-            background: linear-gradient(45deg, #0066ff, #00ccff);
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #ffd966, #ffaa33);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: 2px;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #00ccff;
+            margin-bottom: 10px;
+            color: #ffd966;
             font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        label i {
+            margin-right: 8px;
         }
 
         input {
             width: 100%;
-            padding: 15px;
-            background: rgba(0, 30, 60, 0.8);
-            border: 1px solid #0066ff;
-            border-radius: 10px;
+            padding: 16px 20px;
+            background: #1f2d4a;
+            border: 2px solid #ffd96660;
+            border-radius: 40px;
             color: #fff;
-            font-size: 16px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
             transition: all 0.3s;
         }
 
         input:focus {
             outline: none;
-            border-color: #00ccff;
-            box-shadow: 0 0 15px rgba(0, 204, 255, 0.3);
+            border-color: #ffd966;
+            box-shadow: 0 0 20px rgba(255, 217, 102, 0.3);
+        }
+
+        input::placeholder {
+            color: #b7c9f080;
         }
 
         button {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #0066ff, #00ccff);
+            padding: 16px;
+            background: linear-gradient(135deg, #ffd966, #ffaa33);
             border: none;
-            border-radius: 10px;
-            color: #000;
-            font-size: 18px;
-            font-weight: 600;
+            border-radius: 40px;
+            color: #0a0f1e;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         button:hover {
             transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 217, 102, 0.4);
+        }
+
+        button i {
+            font-size: 1.3rem;
         }
 
         .result {
             margin-top: 30px;
-            padding: 20px;
-            background: rgba(0, 102, 255, 0.1);
-            border: 1px solid #0066ff;
-            border-radius: 10px;
+            padding: 25px;
+            background: #1f2d4a;
+            border: 2px solid #ffd966;
+            border-radius: 40px;
             word-break: break-all;
         }
 
         .result h3 {
-            color: #00ccff;
-            margin-bottom: 10px;
+            font-family: 'ManiTiles', 'Inter', sans-serif;
+            color: #ffd966;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
         }
 
         .code {
-            font-size: 24px;
-            font-weight: bold;
+            font-family: 'ManiTiles', monospace;
+            font-size: 2.5rem;
+            font-weight: 800;
             color: #fff;
             text-align: center;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            letter-spacing: 2px;
+            padding: 20px;
+            background: #0a0f1e;
+            border-radius: 30px;
+            letter-spacing: 5px;
+            border: 1px solid #ffd96640;
+        }
+
+        .code-note {
+            margin-top: 15px;
+            color: #b7c9f0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .code-note i {
+            color: #ffd966;
         }
 
         .loading {
@@ -121,11 +250,11 @@
         .loading::after {
             content: '';
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #0066ff;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #ffd96630;
             border-radius: 50%;
-            border-top-color: #00ccff;
+            border-top-color: #ffd966;
             animation: spin 1s ease-in-out infinite;
         }
 
@@ -133,51 +262,233 @@
             to { transform: rotate(360deg); }
         }
 
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            text-decoration: none;
-            transition: color 0.3s;
+        /* Info Note */
+        .info-note {
+            background: #1f2d4a40;
+            border: 2px dashed #ffd96640;
+            border-radius: 30px;
+            padding: 20px;
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #b7c9f0;
         }
 
-        .back:hover {
-            color: #00ccff;
+        .info-note i {
+            font-size: 2rem;
+            color: #ffd966;
+        }
+
+        .info-note a {
+            color: #ffd966;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .info-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #030814;
+            border-top: 3px solid #ffd96630;
+            padding: 40px 20px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            font-family: 'ManiTiles', 'Inter', sans-serif;
+            color: #ffd966;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p {
+            color: #b0c6f0;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .footer-section i {
+            color: #ffd966;
+            width: 20px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            padding: 20px 20px 0;
+            border-top: 1px solid #ffd96620;
+            text-align: center;
+            color: #8a9fc8;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom .wa-number {
+            color: #ffd966;
+            font-weight: 600;
+            margin-top: 8px;
+            font-size: 1rem;
+        }
+
+        /* Notification */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .notification {
+            background: #1f2d4a;
+            border-left: 6px solid #ffd966;
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideIn 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification i {
+            font-size: 1.5rem;
+            color: #ffd966;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container { padding: 20px; }
+            .pair-card { padding: 25px; }
+            h2 { font-size: 1.8rem; }
+            .code { font-size: 1.8rem; letter-spacing: 3px; }
+            .site-header { flex-direction: column; align-items: flex-start; }
+            .logo-text-fallback { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
+    <div class="notification-container" id="notificationContainer"></div>
+
     <div class="container">
-        <h2>🐢 𝙂𝙀𝙏 𝙋𝘼𝙄𝙍 𝘾𝙊𝘿𝙀</h2>
-        
-        <div class="input-group">
-            <label>📱 𝙒𝙝𝙖𝙩𝙨𝘼𝙥𝙥 𝙉𝙪𝙢𝙗𝙚𝙧</label>
-            <input type="text" id="number" placeholder="9478xxxxxx" value="947858xxxxx">
+        <!-- Header -->
+        <div class="site-header">
+            <div class="logo">
+                <img src="https://files.catbox.moe/axuse3.png" alt="NIOR" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="logo-text-fallback" style="display: none;">NIOR</span>
+            </div>
+            <div class="wa-header">
+                <i class="fab fa-whatsapp"></i>
+                <span>+255 779 206 718</span>
+            </div>
         </div>
-        
-        <button onclick="getPairCode()">🔗 𝙂𝙚𝙩 𝙋𝙖𝙞𝙧 𝘾𝙤𝙙𝙚</button>
-        
-        <div id="result" class="result" style="display: none;">
-            <h3>✅ 𝙋𝙖𝙞𝙧 𝘾𝙤𝙙𝙚 𝙂𝙚𝙣𝙚𝙧𝙖𝙩𝙚𝙙</h3>
-            <div id="code" class="code"></div>
-            <p style="margin-top: 15px; color: #aaa; font-size: 12px;">Enter this code in your WhatsApp > Linked Devices</p>
+
+        <!-- Main Pair Card -->
+        <div class="pair-card">
+            <h2><i class="fas fa-link"></i> GET PAIR CODE</h2>
+            
+            <div class="input-group">
+                <label><i class="fas fa-phone-alt"></i> WhatsApp Number</label>
+                <input type="text" id="number" placeholder="2557xxxxxxxx" value="2557xxxxxxx">
+            </div>
+            
+            <button onclick="getPairCode()">
+                <i class="fas fa-qrcode"></i> Generate Pair Code
+            </button>
+            
+            <div id="result" class="result" style="display: none;">
+                <h3><i class="fas fa-check-circle"></i> Pair Code Generated</h3>
+                <div id="code" class="code"></div>
+                <div class="code-note">
+                    <i class="fas fa-info-circle"></i>
+                    Enter this code in WhatsApp > Linked Devices
+                </div>
+            </div>
         </div>
-        
-        <a href="/" class="back">← 𝘽𝙖𝙘𝙠 𝙩𝙤 𝙃𝙤𝙢𝙚</a>
+
+        <!-- Info Note -->
+        <div class="info-note">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+                <strong>Need help?</strong> Contact us on 
+                <a href="https://wa.me/255779206718" target="_blank">WhatsApp <i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>NIOR PAIR</h3>
+                <p><i class="fas fa-circle-info"></i> WhatsApp pairing tool</p>
+                <p><i class="fas fa-clock"></i> 24/7 available</p>
+            </div>
+            <div class="footer-section">
+                <h3>contact</h3>
+                <p><i class="fab fa-whatsapp"></i> +255 779 206 718</p>
+                <p><i class="fas fa-envelope"></i> pair@nior.space</p>
+            </div>
+            <div class="footer-section">
+                <h3>about</h3>
+                <p><i class="fas fa-crown"></i> NIOR · 2026</p>
+                <p><i class="fas fa-shield"></i> secure pairing</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 NIOR Pair. All rights reserved.</div>
+            <div class="wa-number"><i class="fab fa-whatsapp"></i> +255 779 206 718</div>
+        </div>
+    </footer>
+
     <script>
+        const notificationContainer = document.getElementById('notificationContainer');
+
+        function showNotification(message, icon = 'fas fa-check-circle') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="${icon}"></i>
+                <div>${message}</div>
+            `;
+            notificationContainer.appendChild(notification);
+            setTimeout(() => notification.remove(), 4000);
+        }
+
         async function getPairCode() {
             const number = document.getElementById('number').value.trim();
             if (!number) {
-                alert('Please enter a number');
+                showNotification('Please enter a number', 'fas fa-exclamation-circle');
                 return;
             }
 
             const button = document.querySelector('button');
-            const originalText = button.textContent;
-            button.textContent = '⏳ 𝙂𝙚𝙣𝙚𝙧𝙖𝙩𝙞𝙣𝙜...';
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Generating...';
             button.disabled = true;
 
             document.getElementById('result').style.display = 'none';
@@ -189,13 +500,14 @@
                 if (data.code) {
                     document.getElementById('code').textContent = data.code;
                     document.getElementById('result').style.display = 'block';
+                    showNotification('Code generated successfully!', 'fas fa-check-circle');
                 } else {
-                    alert('Error: ' + (data.error || 'Failed to get code'));
+                    showNotification(data.error || 'Failed to get code', 'fas fa-exclamation-circle');
                 }
             } catch (error) {
-                alert('Network error: ' + error.message);
+                showNotification('Network error: ' + error.message, 'fas fa-exclamation-triangle');
             } finally {
-                button.textContent = originalText;
+                button.innerHTML = originalText;
                 button.disabled = false;
             }
         }
