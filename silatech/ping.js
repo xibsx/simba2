@@ -13,7 +13,7 @@ cmd({
     try {
         const start = Date.now();
         await conn.sendMessage(from, { 
-            text: '*𝙿𝚒𝚗𝚐...*',
+            text: 'Ping...',
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
         
@@ -21,7 +21,7 @@ cmd({
         const latency = end - start;
         
         await conn.sendMessage(from, {
-            text: `*╭━━━〔 🐢 𝙿𝙸𝙽𝙶 〕━━━┈⊷*\n*┃🐢│ ⚡ 𝚂𝚙𝚎𝚎𝚍: ${latency}ms*\n*┃🐢│ 🕒 𝚃𝚒𝚖𝚎: ${new Date().toLocaleString()}*\n*╰━━━━━━━━━━━━━━━┈⊷*\n\n${config.BOT_FOOTER}`,
+            text: `┏╾─────────── PING ───────────╼\n╿\n├⟐ Speed: ${latency}ms\n├⟐ Time: ${new Date().toLocaleString()}\n╽\n┗╾───────────\n\n${config.BOT_FOOTER}`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
         

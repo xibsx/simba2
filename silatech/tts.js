@@ -2,7 +2,7 @@ const { cmd } = global;
 const config = require('../config');
 const { fkontak, getContextInfo } = require('../lib/functions');
 const axios = require('axios');
-const googleTTS = require('google-tts-api'); // Make sure to install this
+const googleTTS = require('google-tts-api');
 
 cmd({
     pattern: "tts",
@@ -17,14 +17,13 @@ cmd({
         
         if (!text) {
             return await conn.sendMessage(from, {
-                text: `🔊 *𝚄𝚜𝚊𝚐𝚎:* .𝚝𝚝𝚜 <𝚝𝚎𝚡𝚝>\n\n𝙴𝚡: .𝚝𝚝𝚜 𝙷𝚎𝚕𝚕𝚘 𝚆𝚘𝚛𝚕𝚍\n.𝚜𝚊𝚢 𝙰𝚜𝚜𝚊𝚕𝚊𝚖𝚞𝚊𝚕𝚊𝚒𝚔𝚞𝚖`,
+                text: `🔊 Usage: .tts <text>\n\nExample: .tts Hello World\n.say Assalamualaikum`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
         }
 
-        // Auto-detect language or use English as fallback
         const ttsUrl = googleTTS.getAudioUrl(text, {
-            lang: 'en', // Google TTS auto-detects language based on text
+            lang: 'en',
             slow: false,
             host: "https://translate.google.com",
         });
@@ -50,7 +49,7 @@ cmd({
     } catch (error) {
         console.error('TTS error:', error);
         await conn.sendMessage(from, {
-            text: `❌ *𝙵𝚊𝚒𝚕𝚎𝚍:* ${error.message}`,
+            text: `❌ Failed: ${error.message}`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
     }

@@ -14,7 +14,7 @@ cmd({
     try {
         if (!isOwner) {
             return await conn.sendMessage(from, {
-                text: "🚫 *𝙾𝚠𝚗𝚎𝚛-𝚘𝚗𝚕𝚢 𝚌𝚘𝚖𝚖𝚊𝚗𝚍!*",
+                text: "🚫 Owner-only command!",
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
         }
@@ -23,12 +23,11 @@ cmd({
         
         if (!newPrefix) {
             return await conn.sendMessage(from, {
-                text: `📌 *𝙲𝚞𝚛𝚛𝚎𝚗𝚝 𝙿𝚛𝚎𝚏𝚒𝚡:* ${config.PREFIX}\n\n𝚄𝚜𝚊𝚐𝚎: .setprefix <new prefix>\n𝙴𝚡𝚊𝚖𝚙𝚕𝚎: .setprefix !\n𝙾𝚛: .setprefix none (𝚏𝚘𝚛 𝚗𝚘 𝚙𝚛𝚎𝚏𝚒𝚡)`,
+                text: `📌 Current Prefix: ${config.PREFIX}\n\nUsage: .setprefix <new prefix>\nExample: .setprefix !\nOr: .setprefix none (for no prefix)`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
         }
 
-        // Update config
         if (newPrefix === 'none') {
             config.PREFIX = '';
             config.NO_PREFIX = 'true';
@@ -37,14 +36,13 @@ cmd({
             config.NO_PREFIX = 'false';
         }
 
-        // Save to database
         await updateUserSettings(sender.split('@')[0], {
             prefix: config.PREFIX,
             no_prefix: config.NO_PREFIX
         });
 
         await conn.sendMessage(from, {
-            text: `✅ *𝙿𝚛𝚎𝚏𝚒𝚡 𝚞𝚙𝚍𝚊𝚝𝚎𝚍!*\n\n𝙽𝚎𝚠 𝙿𝚛𝚎𝚏𝚒𝚡: ${config.PREFIX || '𝙽𝚘 𝙿𝚛𝚎𝚏𝚒𝚡'}\n𝙽𝚘 𝙿𝚛𝚎𝚏𝚒𝚡 𝙼𝚘𝚍𝚎: ${config.NO_PREFIX === 'true' ? '✅ 𝙴𝚗𝚊𝚋𝚕𝚎𝚍' : '❌ 𝙳𝚒𝚜𝚊𝚋𝚕𝚎𝚍'}\n\n> ${config.BOT_FOOTER}`,
+            text: `✅ Prefix updated!\n\nNew Prefix: ${config.PREFIX || 'No Prefix'}\nNo Prefix Mode: ${config.NO_PREFIX === 'true' ? '✅ Enabled' : '❌ Disabled'}\n\n> ${config.BOT_FOOTER}`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
 

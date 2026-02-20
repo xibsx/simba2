@@ -14,7 +14,7 @@ cmd({
     try {
         if (!isOwner) {
             return await conn.sendMessage(from, {
-                text: "🚫 *𝙾𝚠𝚗𝚎𝚛-𝚘𝚗𝚕𝚢 𝚌𝚘𝚖𝚖𝚊𝚗𝚍!*",
+                text: "🚫 Owner-only command!",
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
         }
@@ -26,24 +26,24 @@ cmd({
         switch (action) {
             case 'on':
                 if (settings.global.enabled) {
-                    statusText = "📌 𝙲𝚑𝚊𝚝𝚋𝚘𝚝 𝚒𝚜 𝚊𝚕𝚛𝚎𝚊𝚍𝚢 *𝙴𝙽𝙰𝙱𝙻𝙴𝙳*!";
+                    statusText = "📌 Chatbot is already ENABLED!";
                 } else {
                     await toggleChatbot(true);
-                    statusText = "✅ 𝙲𝚑𝚊𝚝𝚋𝚘𝚝 𝚑𝚊𝚜 𝚋𝚎𝚎𝚗 *𝙴𝙽𝙰𝙱𝙻𝙴𝙳*!";
+                    statusText = "✅ Chatbot has been ENABLED!";
                 }
                 break;
 
             case 'off':
                 if (!settings.global.enabled) {
-                    statusText = "📌 𝙲𝚑𝚊𝚝𝚋𝚘𝚝 𝚒𝚜 𝚊𝚕𝚛𝚎𝚊𝚍𝚢 *𝙳𝙸𝚂𝙰𝙱𝙻𝙴𝙳*!";
+                    statusText = "📌 Chatbot is already DISABLED!";
                 } else {
                     await toggleChatbot(false);
-                    statusText = "❌ 𝙲𝚑𝚊𝚝𝚋𝚘𝚝 𝚑𝚊𝚜 𝚋𝚎𝚎𝚗 *𝙳𝙸𝚂𝙰𝙱𝙻𝙴𝙳*!";
+                    statusText = "❌ Chatbot has been DISABLED!";
                 }
                 break;
 
             default:
-                statusText = `📌 𝙲𝚑𝚊𝚝𝚋𝚘𝚝 𝚂𝚝𝚊𝚝𝚞𝚜: ${settings.global.enabled ? "✅ *𝙴𝙽𝙰𝙱𝙻𝙴𝙳*" : "❌ *𝙳𝙸𝚂𝙰𝙱𝙻𝙴𝙳*"}`;
+                statusText = `📌 Chatbot Status: ${settings.global.enabled ? "✅ ENABLED" : "❌ DISABLED"}`;
                 break;
         }
 

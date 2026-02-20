@@ -4,7 +4,7 @@ const { fkontak, getContextInfo } = require('../lib/functions');
 const os = require('os');
 
 cmd({
-    pattern: "stats",
+    pattern: "bot_stats",
     alias: ["stats", "system"],
     desc: "Show detailed bot statistics",
     category: "general",
@@ -28,28 +28,28 @@ cmd({
         const activeCount = global.activeSockets?.size || 0;
         const commandCount = global.commands?.size || 0;
 
-        const statsText = `*╭━━━〔 🐢 𝚂𝚈𝚂𝚃𝙴𝙼 𝚂𝚃𝙰𝚃𝚂 〕━━━┈⊷*
-*┃🐢│*
-*┃🐢│ 💾 𝚁𝙰𝙼 𝚄𝚜𝚊𝚐𝚎*
-*┃🐢│ ├ 𝚄𝚜𝚎𝚍: ${usedMemory} MB*
-*┃🐢│ ├ 𝙵𝚛𝚎𝚎: ${freeMemory} MB*
-*┃🐢│ └ 𝚃𝚘𝚝𝚊𝚕: ${totalMemory} MB*
-*┃🐢│*
-*┃🐢│ 🖥️ 𝙲𝙿𝚄 𝙸𝚗𝚏𝚘*
-*┃🐢│ ├ 𝙼𝚘𝚍𝚎𝚕: ${cpuModel.substring(0, 30)}...*
-*┃🐢│ └ 𝙲𝚘𝚛𝚎𝚜: ${cpuCount}*
-*┃🐢│*
-*┃🐢│ 🌐 𝙿𝚕𝚊𝚝𝚏𝚘𝚛𝚖*
-*┃🐢│ ├ 𝙾𝚂: ${platform}*
-*┃🐢│ ├ 𝙰𝚛𝚌𝚑: ${arch}*
-*┃🐢│ └ 𝙷𝚘𝚜𝚝: ${hostname}*
-*┃🐢│*
-*┃🐢│ 🤖 𝙱𝚘𝚝 𝚂𝚝𝚊𝚝𝚜*
-*┃🐢│ ├ 𝙰𝚌𝚝𝚒𝚟𝚎 𝚂𝚎𝚜𝚜𝚒𝚘𝚗𝚜: ${activeCount}*
-*┃🐢│ ├ 𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜: ${commandCount}*
-*┃🐢│ └ 𝚂𝚢𝚜𝚝𝚎𝚖 𝚄𝚙𝚝𝚒𝚖𝚎: ${hours}h ${minutes}m ${seconds}s*
-*┃🐢│*
-*╰━━━━━━━━━━━━━━━┈⊷*
+        const statsText = `┏╾─────────── SYSTEM STATS ───────────╼
+╿
+├⟐ RAM Usage
+├⟐   Used: ${usedMemory} MB
+├⟐   Free: ${freeMemory} MB
+├⟐   Total: ${totalMemory} MB
+╿
+├⟐ CPU Info
+├⟐   Model: ${cpuModel.substring(0, 30)}...
+├⟐   Cores: ${cpuCount}
+╿
+├⟐ Platform
+├⟐   OS: ${platform}
+├⟐   Arch: ${arch}
+├⟐   Host: ${hostname}
+╿
+├⟐ Bot Stats
+├⟐   Active Sessions: ${activeCount}
+├⟐   Commands: ${commandCount}
+├⟐   System Uptime: ${hours}h ${minutes}m ${seconds}s
+╽
+┗╾───────────
 
 > ${config.BOT_FOOTER}`;
 

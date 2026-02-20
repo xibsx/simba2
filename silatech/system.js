@@ -6,9 +6,6 @@ const fs = require('fs-extra');
 const path = require('path');
 const axios = require('axios');
 
-// ============================================
-// 📌 RESTART BOT COMMAND
-// ============================================
 cmd({
     pattern: "restart",
     alias: ["reboot", "res"],
@@ -20,21 +17,19 @@ cmd({
     try {
         if (!isOwner) {
             return await conn.sendMessage(from, {
-                text: "🚫 *𝙾𝚗𝚕𝚢 𝚋𝚘𝚝 𝚘𝚠𝚗𝚎𝚛 𝚌𝚊𝚗 𝚛𝚎𝚜𝚝𝚊𝚛𝚝 𝚝𝚑𝚎 𝚋𝚘𝚝!*",
+                text: "🚫 Owner-only command!",
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
         }
 
-        // Send restart message
         await conn.sendMessage(from, {
             image: { url: config.IMAGE_PATH },
-            caption: `*╭━━━〔 🐢 𝚂𝙸𝚂𝚃𝙴𝙼 〕━━━┈⊷*
-*┃🐢│*
-*┃🐢│ 🔄 *𝚁𝙴𝚂𝚃𝙰𝚁𝚃𝙸𝙽𝙶 𝙱𝙾𝚃...*
-*┃🐢│*
-*┃🐢│ ⏱️ 𝚃𝚒𝚖𝚎: ${new Date().toLocaleString()}*
-*┃🐢│*
-*╰━━━━━━━━━━━━━━━┈⊷*
+            caption: `┏╾─────────── RESTARTING ───────────╼
+╿
+├⟐ Restarting bot...
+├⟐ Time: ${new Date().toLocaleString()}
+╽
+┗╾───────────
 
 > ${config.BOT_FOOTER}`,
             contextInfo: getContextInfo({ sender: sender })
@@ -42,12 +37,10 @@ cmd({
 
         await sleep(2000);
 
-        // Restart using PM2 or node
-        const pm2Name = process.env.PM2_NAME || 'SILA-MD';
+        const pm2Name = process.env.PM2_NAME || 'bot';
         
         exec(`pm2 restart ${pm2Name}`, (error, stdout, stderr) => {
             if (error) {
-                // If PM2 fails, try node
                 exec('pm2 restart all', (err2) => {
                     if (err2) {
                         console.error('Failed to restart:', err2);
@@ -60,15 +53,12 @@ cmd({
     } catch (error) {
         console.error('Restart command error:', error);
         await conn.sendMessage(from, {
-            text: `❌ *𝙴𝚛𝚛𝚘𝚛:* ${error.message}`,
+            text: `❌ Error: ${error.message}`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
     }
 });
 
-// ============================================
-// 📌 UPDATE BOT COMMAND (From GitHub)
-// ============================================
 cmd({
     pattern: "update",
     alias: ["gitpull", "upgrade"],
@@ -80,42 +70,38 @@ cmd({
     try {
         if (!isOwner) {
             return await conn.sendMessage(from, {
-                text: "🚫 *𝙾𝚗𝚕𝚢 𝚋𝚘𝚝 𝚘𝚠𝚗𝚎𝚛 𝚌𝚊𝚗 𝚞𝚙𝚍𝚊𝚝𝚎 𝚝𝚑𝚎 𝚋𝚘𝚝!*",
+                text: "🚫 Owner-only command!",
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
         }
 
         const option = args[0]?.toLowerCase() || 'check';
         
-        // Send update status
         const statusMsg = await conn.sendMessage(from, {
-            text: `*╭━━━〔 🐢 𝚄𝙿𝙳𝙰𝚃𝙴 〕━━━┈⊷*
-*┃🐢│*
-*┃🐢│ 🔍 𝙲𝚑𝚎𝚌𝚔𝚒𝚗𝚐 𝚏𝚘𝚛 𝚞𝚙𝚍𝚊𝚝𝚎𝚜...*
-*┃🐢│*
-*╰━━━━━━━━━━━━━━━┈⊷*`,
+            text: `┏╾─────────── UPDATE ───────────╼
+╿
+├⟐ Checking for updates...
+╽
+┗╾───────────`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
 
         if (option === 'check' || option === 'status') {
-            // Check current version and latest version
             try {
                 const packageJson = require('../../package.json');
                 const currentVersion = packageJson.version || config.version;
                 
-                // Try to get latest version from GitHub
                 let latestVersion = currentVersion;
                 let updateAvailable = false;
                 let repoUrl = '';
                 
                 try {
-                    // You can set your repo URL in config
-                    const githubRepo = config.GITHUB_REPO || 'Sila-Md/HAPA';
+                    const githubRepo = config.GITHUB_REPO || 'username/repo';
                     repoUrl = `https://api.github.com/repos/${githubRepo}/releases/latest`;
                     
                     const response = await axios.get(repoUrl, {
                         timeout: 5000,
-                        headers: { 'User-Agent': 'SILA-MD-BOT' }
+                        headers: { 'User-Agent': 'BOT' }
                     });
                     
                     if (response.data && response.data.tag_name) {
@@ -127,21 +113,21 @@ cmd({
                 }
 
                 const updateText = updateAvailable ? 
-                    `🟢 *𝚄𝚙𝚍𝚊𝚝𝚎 𝙰𝚟𝚊𝚒𝚕𝚊𝚋𝚕𝚎!*` : 
-                    `✅ *𝙱𝚘𝚝 𝚒𝚜 𝚞𝚙 𝚝𝚘 𝚍𝚊𝚝𝚎*`;
+                    `🟢 Update available!` : 
+                    `✅ Bot is up to date`;
 
                 await conn.sendMessage(from, {
-                    text: `*╭━━━〔 🐢 𝚄𝙿𝙳𝙰𝚃𝙴 𝙸𝙽𝙵𝙾 〕━━━┈⊷*
-*┃🐢│*
-*┃🐢│ 📦 𝙲𝚞𝚛𝚛𝚎𝚗𝚝 𝚅𝚎𝚛𝚜𝚒𝚘𝚗: v${currentVersion}*
-*┃🐢│ 🔖 𝙻𝚊𝚝𝚎𝚜𝚝 𝚅𝚎𝚛𝚜𝚒𝚘𝚗: v${latestVersion}*
-*┃🐢│*
-*┃🐢│ ${updateText}*
-*┃🐢│*
-*┃🐢│ 𝚃𝚘 𝚞𝚙𝚍𝚊𝚝𝚎, 𝚞𝚜𝚎:*
-*┃🐢│ .𝚞𝚙𝚍𝚊𝚝𝚎 𝚗𝚘𝚠*
-*┃🐢│*
-*╰━━━━━━━━━━━━━━━┈⊷*
+                    text: `┏╾─────────── UPDATE INFO ───────────╼
+╿
+├⟐ Current version: v${currentVersion}
+├⟐ Latest version: v${latestVersion}
+╿
+├⟐ ${updateText}
+╿
+├⟐ To update, use:
+├⟐ .update now
+╽
+┗╾───────────
 
 > ${config.BOT_FOOTER}`,
                     contextInfo: getContextInfo({ sender: sender })
@@ -150,33 +136,28 @@ cmd({
             } catch (error) {
                 console.error('Version check error:', error);
                 await conn.sendMessage(from, {
-                    text: `❌ *𝙵𝚊𝚒𝚕𝚎𝚍 𝚝𝚘 𝚌𝚑𝚎𝚌𝚔 𝚞𝚙𝚍𝚊𝚝𝚎𝚜:* ${error.message}`,
+                    text: `❌ Failed to check updates: ${error.message}`,
                     contextInfo: getContextInfo({ sender: sender })
                 }, { quoted: fkontak });
             }
         }
         else if (option === 'now' || option === 'force') {
-            // Perform actual update
             await conn.sendMessage(from, {
-                text: `*╭━━━〔 🐢 𝚄𝙿𝙳𝙰𝚃𝙸𝙽𝙶 〕━━━┈⊷*
-*┃🐢│*
-*┃🐢│ 📥 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍𝚒𝚗𝚐 𝚞𝚙𝚍𝚊𝚝𝚎𝚜...*
-*┃🐢│ 🔄 𝙿𝚕𝚎𝚊𝚜𝚎 𝚠𝚊𝚒𝚝*
-*┃🐢│*
-*╰━━━━━━━━━━━━━━━┈⊷*`,
+                text: `┏╾─────────── UPDATING ───────────╼
+╿
+├⟐ Downloading updates...
+├⟐ Please wait
+╽
+┗╾───────────`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
 
-            // Git pull command
             exec('git pull origin main', async (error, stdout, stderr) => {
                 if (error) {
-                    console.error('Git pull error:', error);
-                    
-                    // Try with different branch
                     exec('git pull origin master', async (err2, stdout2, stderr2) => {
                         if (err2) {
                             return await conn.sendMessage(from, {
-                                text: `❌ *𝙶𝚒𝚝 𝚞𝚙𝚍𝚊𝚝𝚎 𝚏𝚊𝚒𝚕𝚎𝚍!*\n\n${error.message}`,
+                                text: `❌ Git pull failed!\n\n${error.message}`,
                                 contextInfo: getContextInfo({ sender: sender })
                             }, { quoted: fkontak });
                         }
@@ -190,10 +171,9 @@ cmd({
         }
         else {
             await conn.sendMessage(from, {
-                text: `📌 *𝚄𝚜𝚊𝚐𝚎:*\n\n` +
-                      `.𝚞𝚙𝚍𝚊𝚝𝚎 𝚌𝚑𝚎𝚌𝚔  - 𝙲𝚑𝚎𝚌𝚔 𝚏𝚘𝚛 𝚞𝚙𝚍𝚊𝚝𝚎𝚜\n` +
-                      `.𝚞𝚙𝚍𝚊𝚝𝚎 𝚗𝚘𝚠    - 𝙿𝚎𝚛𝚏𝚘𝚛𝚖 𝚞𝚙𝚍𝚊𝚝𝚎\n` +
-                      `.𝚞𝚙𝚍𝚊𝚝𝚎 𝚏𝚘𝚛𝚌𝚎  - 𝙵𝚘𝚛𝚌𝚎 𝚞𝚙𝚍𝚊𝚝𝚎`,
+                text: `📌 Usage:\n\n` +
+                      `.update check  - Check for updates\n` +
+                      `.update now    - Perform update`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
         }
@@ -201,15 +181,12 @@ cmd({
     } catch (error) {
         console.error('Update command error:', error);
         await conn.sendMessage(from, {
-            text: `❌ *𝙴𝚛𝚛𝚘𝚛:* ${error.message}`,
+            text: `❌ Error: ${error.message}`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
     }
 });
 
-// ============================================
-// 📌 UPDATE NPM DEPENDENCIES
-// ============================================
 cmd({
     pattern: "npmupdate",
     alias: ["npmi", "installdeps"],
@@ -221,31 +198,31 @@ cmd({
     try {
         if (!isOwner) {
             return await conn.sendMessage(from, {
-                text: "🚫 *𝙾𝚠𝚗𝚎𝚛-𝚘𝚗𝚕𝚢 𝚌𝚘𝚖𝚖𝚊𝚗𝚍!*",
+                text: "🚫 Owner-only command!",
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
         }
 
         await conn.sendMessage(from, {
-            text: `*╭━━━〔 🐢 𝙽𝙿𝙼 𝚄𝙿𝙳𝙰𝚃𝙴 〕━━━┈⊷*
-*┃🐢│*
-*┃🐢│ 📦 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚒𝚗𝚐 𝚍𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜...*
-*┃🐢│ ⏳ 𝚃𝚑𝚒𝚜 𝚖𝚊𝚢 𝚝𝚊𝚔𝚎 𝚊 𝚏𝚎𝚠 𝚖𝚒𝚗𝚞𝚝𝚎𝚜*
-*┃🐢│*
-*╰━━━━━━━━━━━━━━━┈⊷*`,
+            text: `┏╾─────────── NPM UPDATE ───────────╼
+╿
+├⟐ Installing dependencies...
+├⟐ This may take a few minutes
+╽
+┗╾───────────`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
 
         exec('npm install', async (error, stdout, stderr) => {
             if (error) {
                 return await conn.sendMessage(from, {
-                    text: `❌ *𝙽𝙿𝙼 𝚒𝚗𝚜𝚝𝚊𝚕𝚕 𝚏𝚊𝚒𝚕𝚎𝚍!*\n\n${error.message}`,
+                    text: `❌ NPM install failed!\n\n${error.message}`,
                     contextInfo: getContextInfo({ sender: sender })
                 }, { quoted: fkontak });
             }
 
             await conn.sendMessage(from, {
-                text: `✅ *𝙳𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜 𝚞𝚙𝚍𝚊𝚝𝚎𝚍 𝚜𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢!*\n\n𝚁𝚎𝚜𝚝𝚊𝚛𝚝 𝚋𝚘𝚝 𝚝𝚘 𝚊𝚙𝚙𝚕𝚢 𝚌𝚑𝚊𝚗𝚐𝚎𝚜.\n\n> ${config.BOT_FOOTER}`,
+                text: `✅ Dependencies installed successfully!\n\nRestart bot to apply changes.\n\n> ${config.BOT_FOOTER}`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fkontak });
         });
@@ -253,15 +230,12 @@ cmd({
     } catch (error) {
         console.error('NPM update error:', error);
         await conn.sendMessage(from, {
-            text: `❌ *𝙴𝚛𝚛𝚘𝚛:* ${error.message}`,
+            text: `❌ Error: ${error.message}`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
     }
 });
 
-// ============================================
-// 📌 VIEW SYSTEM INFO
-// ============================================
 cmd({
     pattern: "sysinfo",
     alias: ["system", "stats"],
@@ -289,27 +263,27 @@ cmd({
         
         const packageJson = require('../../package.json');
         
-        const infoText = `*╭━━━〔 🐢 𝚂𝚈𝚂𝚃𝙴𝙼 𝙸𝙽𝙵𝙾 〕━━━┈⊷*
-*┃🐢│*
-*┃🐢│ 🤖 𝙱𝚘𝚝 𝙽𝚊𝚖𝚎: ${config.BOT_NAME}*
-*┃🐢│ 📦 𝚅𝚎𝚛𝚜𝚒𝚘𝚗: v${packageJson.version || config.version}*
-*┃🐢│*
-*┃🐢│ ⏱️ 𝚄𝚙𝚝𝚒𝚖𝚎: ${hours}h ${minutes}m ${seconds}s*
-*┃🐢│*
-*┃🐢│ 💾 𝙼𝚎𝚖𝚘𝚛𝚢:*
-*┃🐢│   𝚄𝚜𝚎𝚍: ${(memory.heapUsed / 1024 / 1024).toFixed(2)} MB*
-*┃🐢│   𝚃𝚘𝚝𝚊𝚕: ${(memory.heapTotal / 1024 / 1024).toFixed(2)} MB*
-*┃🐢│   𝚁𝚂𝚂: ${(memory.rss / 1024 / 1024).toFixed(2)} MB*
-*┃🐢│*
-*┃🐢│ 🖥️ 𝚂𝚢𝚜𝚝𝚎𝚖:*
-*┃🐢│   𝙾𝚂: ${os.type()} ${os.release()}*
-*┃🐢│   𝙲𝙿𝚄: ${cpuModel} (${cpuCores} 𝙲𝚘𝚛𝚎𝚜)*
-*┃🐢│   𝚁𝙰𝙼: ${usedMem.toFixed(2)}GB / ${totalMem.toFixed(2)}GB*
-*┃🐢│*
-*┃🐢│ 🌐 𝙿𝚕𝚊𝚝𝚏𝚘𝚛𝚖: ${os.platform()}*
-*┃🐢│ 🏠 𝙷𝚘𝚜𝚝𝚗𝚊𝚖𝚎: ${os.hostname()}*
-*┃🐢│*
-*╰━━━━━━━━━━━━━━━┈⊷*
+        const infoText = `┏╾─────────── SYSTEM INFO ───────────╼
+╿
+├⟐ Bot Name: ${config.BOT_NAME}
+├⟐ Version: v${packageJson.version || config.version}
+╿
+├⟐ Uptime: ${hours}h ${minutes}m ${seconds}s
+╿
+├⟐ Memory Usage:
+├⟐   Heap Used: ${(memory.heapUsed / 1024 / 1024).toFixed(2)} MB
+├⟐   Heap Total: ${(memory.heapTotal / 1024 / 1024).toFixed(2)} MB
+├⟐   RSS: ${(memory.rss / 1024 / 1024).toFixed(2)} MB
+╿
+├⟐ System:
+├⟐   OS: ${os.type()} ${os.release()}
+├⟐   CPU: ${cpuModel} (${cpuCores} cores)
+├⟐   RAM: ${usedMem.toFixed(2)}GB / ${totalMem.toFixed(2)}GB
+╿
+├⟐ Platform: ${os.platform()}
+├⟐ Hostname: ${os.hostname()}
+╽
+┗╾───────────
 
 > ${config.BOT_FOOTER}`;
 
@@ -322,27 +296,24 @@ cmd({
     } catch (error) {
         console.error('Sysinfo error:', error);
         await conn.sendMessage(from, {
-            text: `❌ *𝙴𝚛𝚛𝚘𝚛:* ${error.message}`,
+            text: `❌ Error: ${error.message}`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fkontak });
     }
 });
 
-// ============================================
-// 📌 HELPER FUNCTIONS
-// ============================================
 async function handleSuccessfulUpdate(conn, from, sender, stdout) {
     const packageJson = require('../../package.json');
     
     await conn.sendMessage(from, {
-        text: `*╭━━━〔 🐢 𝚄𝙿𝙳𝙰𝚃𝙴 𝚂𝚄𝙲𝙲𝙴𝚂𝚂 〕━━━┈⊷*
-*┃🐢│*
-*┃🐢│ ✅ 𝚄𝚙𝚍𝚊𝚝𝚎 𝚌𝚘𝚖𝚙𝚕𝚎𝚝𝚎𝚍!*
-*┃🐢│ 📦 𝙽𝚎𝚠 𝚅𝚎𝚛𝚜𝚒𝚘𝚗: v${packageJson.version || '?'}*
-*┃🐢│*
-*┃🐢│ 🔄 𝚁𝚎𝚜𝚝𝚊𝚛𝚝𝚒𝚗𝚐 𝚋𝚘𝚝...*
-*┃🐢│*
-*╰━━━━━━━━━━━━━━━┈⊷*
+        text: `┏╾─────────── UPDATE SUCCESS ───────────╼
+╿
+├⟐ Update completed!
+├⟐ New version: v${packageJson.version || '?'}
+╿
+├⟐ Restarting bot...
+╽
+┗╾───────────
 
 > ${config.BOT_FOOTER}`,
         contextInfo: getContextInfo({ sender: sender })
@@ -350,8 +321,7 @@ async function handleSuccessfulUpdate(conn, from, sender, stdout) {
 
     await sleep(3000);
     
-    // Restart after update
-    const pm2Name = process.env.PM2_NAME || 'SILA-MD';
+    const pm2Name = process.env.PM2_NAME || 'bot';
     exec(`pm2 restart ${pm2Name}`, (err) => {
         if (err) process.exit(1);
     });
